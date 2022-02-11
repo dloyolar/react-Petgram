@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { App } from './App';
+import { AppProvider } from './Context';
 
 const client = new ApolloClient({
   uri: 'https://petgram-server-dloyolar.vercel.app/graphql',
@@ -10,7 +11,9 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <AppProvider>
+      <App />
+    </AppProvider>
   </ApolloProvider>,
   document.getElementById('app')
 );

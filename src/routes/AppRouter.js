@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Detail } from '../pages/Detail';
 import { Home } from '../pages/Home';
@@ -7,10 +7,13 @@ import { Layout } from '../Layout/Layout';
 import { Favs } from '../pages/Favs';
 import { User } from '../pages/User';
 import { NotRegisteredUser } from '../pages/NotRegisteredUser';
-
-const isLogged = false;
+import { AppContext } from '../Context';
 
 export const AppRouter = () => {
+  const {
+    user: { isAuth },
+  } = useContext(AppContext);
+
   return (
     <BrowserRouter>
       <Layout>
@@ -20,11 +23,11 @@ export const AppRouter = () => {
           <Route path="/detail/:id" element={<Detail />} />
           <Route
             path="/favs"
-            element={isLogged ? <Favs /> : <NotRegisteredUser />}
+            element={isAuth ? <Favs /> : <NotRegisteredUser />}
           />
           <Route
             path="/user"
-            element={isLogged ? <User /> : <NotRegisteredUser />}
+            element={isAuth ? <User /> : <NotRegisteredUser />}
           />
         </Routes>
       </Layout>
