@@ -17,8 +17,7 @@ const query = gql`
   }
 `;
 
-export const PhotoCardWithQuery = () => {
-  const { id } = useParams();
+export const PhotoCardWithQuery = ({ id }) => {
   const { loading, error, data } = useQuery(query, {
     variables: {
       id: id,
