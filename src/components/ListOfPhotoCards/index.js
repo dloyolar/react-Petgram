@@ -2,11 +2,12 @@ import React from 'react';
 
 import { PhotoCard } from '../PhotoCard';
 import { useGetPhotos } from '../../hooks/useGetPhotos';
+import { PhotoLoader } from '../Loader';
 
 export const ListOfPhotoCards = ({ categoryId }) => {
   const { loading, error, data } = useGetPhotos(categoryId);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <PhotoLoader />;
 
   if (error) return <p>Error to get data</p>;
 
