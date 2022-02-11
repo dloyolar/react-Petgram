@@ -1,7 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from '../../hooks/useForm';
 
-export const UserForm = ({ onSubmit }) => {
+import { Form, Input, Button, Wrapper, Img, P, SpanLink } from './styles';
+
+export const UserForm = ({
+  onSubmit,
+  btnText,
+  text,
+  helpText,
+  onClickHelpText,
+}) => {
   const initialState = {
     email: '',
     password: '',
@@ -10,24 +18,30 @@ export const UserForm = ({ onSubmit }) => {
 
   const { email, password } = value;
 
-  console.log(value);
-
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        onChange={onChange}
-        value={email}
-        placeholder="Email"
-        name="email"
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={onChange}
-        name="password"
-      />
-      <button>Sign in</button>
-    </form>
+    <Wrapper>
+      <h2>{btnText}</h2>
+      <Img src="https://creazilla-store.fra1.digitaloceanspaces.com/silhouettes/69796/standing-dog-silhouette-f35580-md.png" />
+      <Form onSubmit={onSubmit}>
+        <Input
+          onChange={onChange}
+          value={email}
+          placeholder="Email"
+          name="email"
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={onChange}
+          name="password"
+        />
+        <div>
+          <P>{text}</P>{' '}
+          <SpanLink onClick={onClickHelpText}>{helpText}</SpanLink>
+        </div>
+        <Button type="submit">{btnText}</Button>
+      </Form>
+    </Wrapper>
   );
 };
