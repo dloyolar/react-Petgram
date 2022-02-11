@@ -10,6 +10,6 @@ export const Loader = styled.div`
   border-radius: 6px;
   overflow: hidden;
   height: auto;
-  width: 414px;
+  width: auto;
   ${skeletonAnimation}
 `;
