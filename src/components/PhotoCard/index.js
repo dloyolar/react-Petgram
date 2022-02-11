@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { useMutationToogleLike } from '../../hooks/useMutationToggleLike';
 import { useNearScreen } from '../../hooks/useNearScreen';
 import { FavButton } from '../FavButton';
 
@@ -12,8 +13,12 @@ export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
   const [show, element] = useNearScreen();
   const key = `like-${id}`;
   const [liked, setLiked] = useLocalStorage(key, false);
+  const [toggleLike] = useMutationToogleLike();
 
-  const handleFavClick = () => setLiked(!liked);
+  const handleFavClick = () => {
+    !liked && toggleLike({ variables: { input: { id: id } } });
+    setLiked(!liked);
+  };
 
   return (
     <Article ref={element}>
