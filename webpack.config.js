@@ -2,6 +2,13 @@ const HtmlWebackPlugin = require('html-webpack-plugin');
 module.exports = {
   output: {
     filename: 'app.bundle.js',
+    publicPath: '/',
+  },
+  devServer: {
+    historyApiFallback: {
+      disableDotRule: true,
+    },
+    liveReload: true,
   },
   plugins: [
     new HtmlWebackPlugin({
