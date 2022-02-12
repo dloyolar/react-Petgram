@@ -13,6 +13,8 @@ import {
   Error,
 } from './styles';
 
+import { SubmitButton } from '../SubmitButton';
+
 export const UserForm = ({
   onSubmit,
   btnText,
@@ -62,7 +64,9 @@ export const UserForm = ({
               <P>{text}</P>
               <SpanLink onClick={onClickHelpText}>{helpText}</SpanLink>
             </div>
-            <Button type="submit">{btnText}</Button>
+            <SubmitButton type="submit" onClick={handleSubmit}>
+              {btnText}
+            </SubmitButton>
           </Form>
         </>
       )}
