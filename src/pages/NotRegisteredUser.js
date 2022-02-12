@@ -2,13 +2,23 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserForm } from '../components/UserForm';
 import { AppContext } from '../Context';
+import { useLoginMutation } from '../hooks/useLoginMutation';
 import { useRegisterMutation } from '../hooks/useRegisterMutation';
 
 export const NotRegisteredUser = () => {
   const navigate = useNavigate();
   const { login } = useContext(AppContext);
   const [loginScreen, setLoginScreen] = useState(true);
-  const { register, loading, error } = useRegisterMutation();
+  const {
+    register,
+    loading: registerLoading,
+    error: registerError,
+  } = useRegisterMutation();
+  const {
+    SignIn,
+    loading: loginLoading,
+    error: loginError,
+  } = useLoginMutation();
 
   const handleSubmitRegister = ({ email, password }) => {
     const input = { email, password };
@@ -17,12 +27,21 @@ export const NotRegisteredUser = () => {
     navigate('/user');
   };
 
-  const errorMsg = error && 'The user already exists or there is a problem.';
-
   const handleSubmitLogin = ({ email, password }) => {
     const input = { email, password };
     const variables = { input };
+    SignIn({ variables })
+      .then(login)
+      .catch((err) => {
+        console.log(err);
+      });
   };
+
+  const errorRegisterMsg =
+    registerError && 'The user already exists or there is a problem.';
+
+  const errorLoginMsg =
+    loginError && 'Incorrect user or password. Or there is a problem';
 
   const onClickHelpText = () => {
     setLoginScreen(!loginScreen);
@@ -37,7 +56,8 @@ export const NotRegisteredUser = () => {
           text="Dont have an account?"
           helpText="Register"
           onClickHelpText={onClickHelpText}
-          error={errorMsg}
+          error={errorLoginMsg}
+          loading={loginLoading}
         />
       ) : (
         <UserForm
@@ -46,8 +66,8 @@ export const NotRegisteredUser = () => {
           text="Already have an account?"
           helpText="Enter here"
           onClickHelpText={onClickHelpText}
-          error={errorMsg}
-          loading={loading}
+          error={errorRegisterMsg}
+          loading={registerLoading}
         />
       )}
     </>
