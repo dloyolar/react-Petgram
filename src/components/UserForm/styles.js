@@ -57,3 +57,12 @@ export const Button = styled.button`
   margin-top: 16px;
   cursor: pointer;
 `;
+
+export const Error = styled.span`
+  ${fadeIn()}
+  font-size: 14px;
+  background: #ff7f7f;
+  color: #fff;
+  padding: 8px;
+  border-radius: 6px;
+`;
