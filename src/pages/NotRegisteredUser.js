@@ -27,7 +27,7 @@ export const NotRegisteredUser = () => {
       const { signup } = data;
       activateAuth(signup);
     });
-    navigate('/user');
+    navigate('/');
   };
 
   const handleSubmitLogin = ({ email, password }) => {
@@ -41,7 +41,7 @@ export const NotRegisteredUser = () => {
       .catch((err) => {
         console.log(err);
       });
-    navigate('/user');
+    navigate('/');
   };
 
   const errorRegisterMsg =

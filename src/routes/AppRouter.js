@@ -29,6 +29,7 @@ export const AppRouter = () => {
             path="/user"
             element={isAuth ? <User /> : <NotRegisteredUser />}
           />
+          <Route path="*" element={<Home />} />
         </Routes>
       </Layout>
     </BrowserRouter>
