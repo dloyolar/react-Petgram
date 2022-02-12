@@ -5,7 +5,7 @@ import { ListOfPhotoCards } from '../components/ListOfPhotoCards';
 
 import { Helmet } from 'react-helmet';
 
-export const Home = () => {
+export const Home = React.memo(() => {
   const { id } = useParams();
   return (
     <>
@@ -20,4 +20,4 @@ export const Home = () => {
       <ListOfPhotoCards categoryId={id} />
     </>
   );
-};
+});
