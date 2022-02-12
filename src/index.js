@@ -7,6 +7,7 @@ import {
   InMemoryCache,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
 import { App } from './App';
 import { AppProvider } from './Context';
 
