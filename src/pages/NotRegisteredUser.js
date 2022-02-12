@@ -7,7 +7,7 @@ import { useRegisterMutation } from '../hooks/useRegisterMutation';
 
 export const NotRegisteredUser = () => {
   const navigate = useNavigate();
-  const { login } = useContext(AppContext);
+  const { activateAuth } = useContext(AppContext);
   const [loginScreen, setLoginScreen] = useState(true);
   const {
     register,
@@ -23,7 +23,10 @@ export const NotRegisteredUser = () => {
   const handleSubmitRegister = ({ email, password }) => {
     const input = { email, password };
     const variables = { input };
-    register({ variables }).then(login);
+    register({ variables }).then(({ data }) => {
+      const { signup } = data;
+      activateAuth(signup);
+    });
     navigate('/user');
   };
 
@@ -31,10 +34,14 @@ export const NotRegisteredUser = () => {
     const input = { email, password };
     const variables = { input };
     SignIn({ variables })
-      .then(login)
+      .then(({ data }) => {
+        const { login } = data;
+        activateAuth(login);
+      })
       .catch((err) => {
         console.log(err);
       });
+    navigate('/user');
   };
 
   const errorRegisterMsg =
