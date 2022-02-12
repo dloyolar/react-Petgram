@@ -1,7 +1,17 @@
 import React from 'react';
 import { useForm } from '../../hooks/useForm';
+import { SpinnerLoader } from '../Spinner';
 
-import { Form, Input, Button, Wrapper, Img, P, SpanLink } from './styles';
+import {
+  Form,
+  Input,
+  Button,
+  Wrapper,
+  Img,
+  P,
+  SpanLink,
+  Error,
+} from './styles';
 
 export const UserForm = ({
   onSubmit,
@@ -9,6 +19,8 @@ export const UserForm = ({
   text,
   helpText,
   onClickHelpText,
+  error,
+  loading,
 }) => {
   const initialState = {
     email: '',
@@ -18,30 +30,42 @@ export const UserForm = ({
 
   const { email, password } = value;
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit({ email, password });
+  };
+
   return (
     <Wrapper>
-      <h2>{btnText}</h2>
-      <Img src="https://creazilla-store.fra1.digitaloceanspaces.com/silhouettes/69796/standing-dog-silhouette-f35580-md.png" />
-      <Form onSubmit={onSubmit}>
-        <Input
-          onChange={onChange}
-          value={email}
-          placeholder="Email"
-          name="email"
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={onChange}
-          name="password"
-        />
-        <div>
-          <P>{text}</P>{' '}
-          <SpanLink onClick={onClickHelpText}>{helpText}</SpanLink>
-        </div>
-        <Button type="submit">{btnText}</Button>
-      </Form>
+      {loading ? (
+        <SpinnerLoader />
+      ) : (
+        <>
+          <h2>{btnText}</h2>
+          <Img src="https://creazilla-store.fra1.digitaloceanspaces.com/silhouettes/69796/standing-dog-silhouette-f35580-md.png" />
+          {error && <Error>{error}</Error>}
+          <Form onSubmit={handleSubmit}>
+            <Input
+              onChange={onChange}
+              value={email}
+              placeholder="Email"
+              name="email"
+            />
+            <Input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={onChange}
+              name="password"
+            />
+            <div>
+              <P>{text}</P>
+              <SpanLink onClick={onClickHelpText}>{helpText}</SpanLink>
+            </div>
+            <Button type="submit">{btnText}</Button>
+          </Form>
+        </>
+      )}
     </Wrapper>
   );
 };
